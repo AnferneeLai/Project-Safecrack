@@ -159,14 +159,14 @@ public class Conductor : MonoBehaviour {
                             songListPosition--;
                         }
                         else if (songListPosition == 0) {
-                            songListPosition = 3;
+                            songListPosition = songList.Count - 1;
                         }
                     }
                     else {
                         if (songListPosition < songList.Count - 1) {
                             songListPosition++;
                         }
-                        else if (songListPosition == 3) {
+                        else if (songListPosition == songList.Count - 1) {
                             songListPosition = 0;
                         }
                     }

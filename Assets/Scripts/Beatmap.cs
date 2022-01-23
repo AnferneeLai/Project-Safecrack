@@ -5,13 +5,13 @@ using UnityEditor;
 
 public class Beatmap : MonoBehaviour
 {
-    public TextAsset clickBeatmap;
-    private string[] clickCsv;
+    //public TextAsset clickBeatmap;
+    //private string[] clickCsv;
     public List<int> clickMeasureList = new List<int>();
     public List<float> clickBeatList = new List<float>();
 
-    public TextAsset playerBeatmap;
-    private string[] playerCsv;
+    //public TextAsset playerBeatmap;
+    //private string[] playerCsv;
     public List<int> playerMeasureList = new List<int>();
     public List<float> playerBeatList = new List<float>();
 
