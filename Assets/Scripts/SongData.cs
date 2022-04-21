@@ -14,10 +14,13 @@ public class SongData : MonoBehaviour
     public string songName;
     public int bpm;
     public int sig;
+    public int highscore;
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (PlayerPrefs.HasKey(songName + "highscore")) {
+            highscore = PlayerPrefs.GetInt(songName + "highscore");
+        }
     }
 
     // Update is called once per frame

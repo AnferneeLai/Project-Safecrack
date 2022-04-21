@@ -34,6 +34,7 @@ public class Conductor : MonoBehaviour {
     [Header("Extra settings and bools")]
     public int measureMultiplier = 1;
     public int totalPoints = 0;
+    public int comboPoints = 0;
     public float lockMultiplier = 1;
     public float dspSongTime;
     public float resetHoldTimer;
@@ -60,6 +61,7 @@ public class Conductor : MonoBehaviour {
     // UI
     public GameObject settingsCanvas;
     public GameObject scoreText;
+    public TextMeshPro comboText;
     public TextMeshPro currentlyPlaying;
     public TextMeshPro currentBPM;
     public Slider progressBar;
@@ -133,7 +135,11 @@ public class Conductor : MonoBehaviour {
         if (PlayerPrefs.HasKey("BGMVolume")) {
             ChangeMusicVolume(PlayerPrefs.GetFloat("BGMVolume"));
         }
-        
+
+        scoreText.GetComponent<TextMeshPro>().text = PlayerPrefs.GetInt(currentSong.songName + "highscore", 0) + "/" + beatmap.clickMeasureList.Capacity;
+        if (PlayerPrefs.GetInt(currentSong.songName + "highscore", 0) == beatmap.clickMeasureList.Capacity) {
+            scoreText.GetComponent<TextMeshPro>().color = goldColor;
+        }
     }
 
     // Update is called once per frame
@@ -202,6 +208,11 @@ public class Conductor : MonoBehaviour {
                 // if the song position passes your click position and you don't click, determine a new click and then snap to middle and snap back
                 if (songPosition > targetSongPosition + msPerBeat / 2 && !responded && clickPlayed) {
                     SFXManager.instance.PlaySound("wrong");
+                    StartCoroutine("FlashRed");
+                    comboPoints = 0;
+                    comboText.GetComponent<TextMeshPro>().text = "x " + comboPoints;
+
+                    Camera.main.GetComponent<CameraShake>().TriggerShake(0.5f);
                     if (autoFailToggle) {
                         ResetSong();
                         sweep2.Play("sweep", 0, 0);
@@ -252,7 +263,9 @@ public class Conductor : MonoBehaviour {
                     measureTracker.moving = true;
                     DetermineClick();
                     scoreText.SetActive(true);
-                    scoreText.GetComponent<TextMeshPro>().text = totalPoints + "/" + beatmap.clickMeasureList.Capacity;
+                    //scoreText.GetComponent<TextMeshPro>().text = totalPoints + "/" + beatmap.clickMeasureList.Capacity;
+                    comboPoints = 0;
+                    comboText.text = "x 0";
                 }
                 else if (clickPlayed && !responded) {
                     // If pressed at right timing (or an eigth of a beat b4/after the target pos)
@@ -268,20 +281,29 @@ public class Conductor : MonoBehaviour {
 
                         // update score
                         totalPoints++;
-                        scoreText.GetComponent<TextMeshPro>().text = totalPoints + "/" + beatmap.clickMeasureList.Capacity;
+                        comboPoints++;
+                        if (currentSong.highscore < totalPoints) {
+                            scoreText.GetComponent<TextMeshPro>().text = totalPoints + "/" + beatmap.clickMeasureList.Capacity;
+                            PlayerPrefs.SetInt(currentSong.songName + "highscore", totalPoints);
+                        }
 
                         // play vfx
                         StartCoroutine("FlashWhite");
+                        StartCoroutine("FlashYellow");
                         sweep.Play("sweep", 0, 0);
-                        Camera.main.GetComponent<CameraShake>().TriggerShake(0.2f);
+                        Camera.main.GetComponent<CameraShake>().TriggerShake(0.3f);
                     }
                     else {
                         SFXManager.instance.PlaySound("wrong");
+                        comboPoints = 0;
+                        StartCoroutine("FlashRed");
                         if (autoFailToggle) {
                             ResetSong();
                         }
+                        Camera.main.GetComponent<CameraShake>().TriggerShake(0.5f);
                     }
                     // determine new click time and snap to middle then back
+                    comboText.GetComponent<TextMeshPro>().text = "x " + comboPoints;
                     StartCoroutine("SecondSnap");
                     DetermineClick();
                 }
@@ -340,6 +362,11 @@ public class Conductor : MonoBehaviour {
         }
 
         CalculateSongInfo();
+
+        scoreText.GetComponent<TextMeshPro>().text = PlayerPrefs.GetInt(currentSong.songName + "highscore", 0) + "/" + beatmap.clickMeasureList.Capacity;
+        if (PlayerPrefs.GetInt(currentSong.songName + "highscore", 0) == beatmap.clickMeasureList.Capacity) {
+            scoreText.GetComponent<TextMeshPro>().color = goldColor;
+        }
     }
 
     public void ResetSong() {
@@ -360,7 +387,7 @@ public class Conductor : MonoBehaviour {
         resetHoldTimer = 0;
         progressBar.value = 0;
 
-        scoreText.GetComponent<TextMeshPro>().text = totalPoints + "/" + beatmap.clickMeasureList.Capacity;
+        comboText.GetComponent<TextMeshPro>().text = "x " + 0;
         spacetext.text = "SPACE TO START";
         settingsCanvas.SetActive(false);
         progressBar.gameObject.SetActive(false);
@@ -398,6 +425,7 @@ public class Conductor : MonoBehaviour {
                         PlayerPrefs.SetFloat(currentlyPlaying.text, 1);
                     }
                     currentlyPlaying.color = goldColor;
+                    scoreText.GetComponent<TextMeshPro>().color = goldColor;
                 }
             }
             else {
@@ -529,6 +557,27 @@ public class Conductor : MonoBehaviour {
             rightbar.GetComponent<SpriteRenderer>().sprite = redbar;
             lefttri.GetComponent<SpriteRenderer>().sprite = redtri;
             righttri.GetComponent<SpriteRenderer>().sprite = redtri;
+        }
+    }
+    
+    public IEnumerator FlashYellow() {
+        int blinkNum = 1;
+        for (int i = 0; i < blinkNum; i++) {
+            comboText.color = goldColor;
+            comboText.fontSize = 150;
+            yield return new WaitForSeconds(0.33f);
+            comboText.color = Color.white;
+            comboText.fontSize = 100;
+
+        }
+    }
+    
+    public IEnumerator FlashRed() {
+        int blinkNum = 1;
+        for (int i = 0; i < blinkNum; i++) {
+            comboText.color = Color.red;
+            yield return new WaitForSeconds(0.33f);
+            comboText.color = Color.white;
         }
     }
 

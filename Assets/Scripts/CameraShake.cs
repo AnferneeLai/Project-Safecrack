@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraShake : MonoBehaviour
 {
     private float shakeDuration = 0f;
-    private float shakeMagnitude = 0.03f;
+    private float shakeMagnitude = 0.05f;
     private float dampingSpeed = 1.0f;
     public Vector3 initialPosition;
     // Start is called before the first frame update

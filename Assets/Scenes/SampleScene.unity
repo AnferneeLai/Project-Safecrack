@@ -693,7 +693,7 @@ RectTransform:
   - {fileID: 995806740}
   - {fileID: 776437967}
   m_Father: {fileID: 896601683}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2149,6 +2149,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timePassed: 0
+  beatInterval: 0
+  pulseMultiplier: 2
 --- !u!224 &464453507 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7419650971680316093, guid: 4fcc60df0f20f4e499b2e3eb07f47e32, type: 3}
@@ -3731,15 +3733,15 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 872375385}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -1.000305}
-  m_LocalScale: {x: 5, y: 5, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 896601683}
-  m_RootOrder: 1
+  m_Father: {fileID: 1277426473}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 355}
+  m_AnchoredPosition: {x: 0, y: -8.400055}
   m_SizeDelta: {x: 150, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &872375387
@@ -3906,7 +3908,8 @@ RectTransform:
   m_LocalScale: {x: 0.00925926, y: 0.00925926, z: 0.00925926}
   m_Children:
   - {fileID: 738844690}
-  - {fileID: 872375386}
+  - {fileID: 1277426473}
+  - {fileID: 1640642319}
   - {fileID: 1424645090}
   - {fileID: 1619731287}
   - {fileID: 211531490}
@@ -5198,7 +5201,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a80772b9f8d14f448bc807fe2bda43f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clickBeatmap: {fileID: 4900000, guid: 7d8690667dbc0f54b9c5ff0de3965a98, type: 3}
   clickMeasureList: 060000000a0000000e00000012000000160000001a0000001e00000022000000260000002a0000002e000000360000003a0000003e0000004200000046000000490000004b0000004d0000004f0000005100000053000000560000005a0000005e000000620000006500000067000000690000006b0000006d0000006f000000710000007300000075000000770000007a0000007c0000007e000000800000008200000084000000870000008b00000090000000
   clickBeatList:
   - 5
@@ -5246,7 +5248,6 @@ MonoBehaviour:
   - 5
   - 5
   - 5
-  playerBeatmap: {fileID: 4900000, guid: 9efad1493ad1f644788150d826dd5883, type: 3}
   playerMeasureList: 080000000c0000001000000014000000180000001c0000002000000024000000280000002c00000030000000380000003c0000004000000044000000480000004a0000004c0000004e000000500000005200000054000000580000005c000000600000006400000066000000680000006a0000006c0000006e00000070000000720000007400000076000000780000007b0000007d0000007f000000810000008300000085000000890000008d00000092000000
   playerBeatList:
   - 5
@@ -5310,6 +5311,7 @@ MonoBehaviour:
   songName: Batter Up
   bpm: 190
   sig: 4
+  highscore: 0
 --- !u!1 &1214847709
 GameObject:
   m_ObjectHideFlags: 0
@@ -5597,6 +5599,7 @@ MonoBehaviour:
   songName: Lock Mock
   bpm: 100
   sig: 4
+  highscore: 0
 --- !u!114 &1246531775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5609,7 +5612,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a80772b9f8d14f448bc807fe2bda43f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clickBeatmap: {fileID: 4900000, guid: d75e244eecfc42d43adf5caa921d59ef, type: 3}
   clickMeasureList: 04000000080000000c0000001000000014000000180000001c0000002000000024000000280000002b0000002d0000002f000000
   clickBeatList:
   - 5
@@ -5625,7 +5627,6 @@ MonoBehaviour:
   - 7
   - 7
   - 7
-  playerBeatmap: {fileID: 4900000, guid: 1da43471e221cd34584c71871bbeec6a, type: 3}
   playerMeasureList: 060000000a0000000e00000012000000160000001a0000001e00000022000000260000002a0000002c0000002e00000030000000
   playerBeatList:
   - 5
@@ -5674,6 +5675,177 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1277426472
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1277426473}
+  - component: {fileID: 1277426475}
+  - component: {fileID: 1277426474}
+  m_Layer: 5
+  m_Name: Highscore
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1277426473
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1277426472}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -1.000305}
+  m_LocalScale: {x: 5, y: 5, z: 1}
+  m_Children:
+  - {fileID: 872375386}
+  m_Father: {fileID: 896601683}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -337}
+  m_SizeDelta: {x: 150, y: 10}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1277426474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1277426472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: High Score
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: b41b96d7c0930824b9905e945eba8814, type: 2}
+  m_sharedMaterial: {fileID: -4998312906879843728, guid: b41b96d7c0930824b9905e945eba8814, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 60
+  m_fontSizeBase: 60
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 1
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 0
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_renderer: {fileID: 1277426475}
+  m_maskType: 0
+  _SortingLayer: 0
+  _SortingLayerID: 0
+  _SortingOrder: 0
+--- !u!23 &1277426475
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1277426472}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: -4998312906879843728, guid: b41b96d7c0930824b9905e945eba8814, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 2
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &1347285395
 GameObject:
   m_ObjectHideFlags: 0
@@ -5764,12 +5936,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a80772b9f8d14f448bc807fe2bda43f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clickBeatmap: {fileID: 0}
   clickMeasureList: 0100000001000000
   clickBeatList:
   - 21
   - 34
-  playerBeatmap: {fileID: 0}
   playerMeasureList: 0100000001000000
   playerBeatList:
   - 28
@@ -5790,6 +5960,7 @@ MonoBehaviour:
   songName: test
   bpm: 130
   sig: 7
+  highscore: 0
 --- !u!1 &1416698231
 GameObject:
   m_ObjectHideFlags: 0
@@ -5920,6 +6091,7 @@ MonoBehaviour:
   songName: Nuts and Bolts
   bpm: 130
   sig: 7
+  highscore: 0
 --- !u!114 &1418783109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5932,7 +6104,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a80772b9f8d14f448bc807fe2bda43f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clickBeatmap: {fileID: 0}
   clickMeasureList: 0100000001000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
   clickBeatList:
   - 21
@@ -5952,7 +6123,6 @@ MonoBehaviour:
   - 199.5
   - 207.5
   - 224
-  playerBeatmap: {fileID: 0}
   playerMeasureList: 0100000001000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
   playerBeatList:
   - 28
@@ -6083,7 +6253,7 @@ RectTransform:
   m_Children:
   - {fileID: 415802052}
   m_Father: {fileID: 896601683}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -6552,6 +6722,7 @@ MonoBehaviour:
   hitNotePosition: 0
   measureMultiplier: 0
   totalPoints: 0
+  comboPoints: 0
   lockMultiplier: 25
   dspSongTime: 0
   resetHoldTimer: 0
@@ -6568,6 +6739,7 @@ MonoBehaviour:
   waitingSong: {fileID: 8300000, guid: e749d1b74232f5e408b587303bf4b907, type: 3}
   settingsCanvas: {fileID: 127768375}
   scoreText: {fileID: 872375385}
+  comboText: {fileID: 1640642320}
   currentlyPlaying: {fileID: 1986882442}
   currentBPM: {fileID: 360891208}
   progressBar: {fileID: 211531491}
@@ -6793,13 +6965,183 @@ RectTransform:
   m_Children:
   - {fileID: 1214847710}
   m_Father: {fileID: 896601683}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 631, y: 437}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1640642318
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1640642319}
+  - component: {fileID: 1640642321}
+  - component: {fileID: 1640642320}
+  m_Layer: 5
+  m_Name: Combo
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1640642319
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1640642318}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -1.000305}
+  m_LocalScale: {x: 5, y: 5, z: 1}
+  m_Children: []
+  m_Father: {fileID: 896601683}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 355}
+  m_SizeDelta: {x: 150, y: 18.09}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1640642320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1640642318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: x 0
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: b41b96d7c0930824b9905e945eba8814, type: 2}
+  m_sharedMaterial: {fileID: -4998312906879843728, guid: b41b96d7c0930824b9905e945eba8814, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 100
+  m_fontSizeBase: 100
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 3
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 0
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_renderer: {fileID: 1640642321}
+  m_maskType: 0
+  _SortingLayer: 0
+  _SortingLayerID: 0
+  _SortingOrder: 0
+--- !u!23 &1640642321
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1640642318}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: -4998312906879843728, guid: b41b96d7c0930824b9905e945eba8814, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 2
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &1645596582
 GameObject:
   m_ObjectHideFlags: 0
@@ -7115,7 +7457,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a80772b9f8d14f448bc807fe2bda43f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clickBeatmap: {fileID: 4900000, guid: d75e244eecfc42d43adf5caa921d59ef, type: 3}
   clickMeasureList: 02000000060000000a0000000e00000012000000
   clickBeatList:
   - 5
@@ -7123,7 +7464,6 @@ MonoBehaviour:
   - 5
   - 5
   - 1
-  playerBeatmap: {fileID: 4900000, guid: 1da43471e221cd34584c71871bbeec6a, type: 3}
   playerMeasureList: 04000000080000000c0000001000000014000000
   playerBeatList:
   - 5
@@ -7147,6 +7487,7 @@ MonoBehaviour:
   songName: Spynthesizer
   bpm: 140
   sig: 4
+  highscore: 0
 --- !u!1 &1787274209
 GameObject:
   m_ObjectHideFlags: 0
